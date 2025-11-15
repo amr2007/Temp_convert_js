@@ -8,8 +8,7 @@ The interface features a pastel anime-inspired theme with custom sakura-style ra
 - Convert **Celsius → Fahrenheit**
 - Convert **Fahrenheit → Celsius**
 - Clean input field with validation
-- Custom anime-style UI with:
-  - Sakura-inspired radio buttons  
+- Custom anime-style UI with:  
   - Pastel gradients  
   - Floating decorative effects  
 - Fully responsive layout  
