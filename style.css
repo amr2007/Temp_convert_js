@@ -1,0 +1,277 @@
+/* styles.css — Anime theme with custom radio buttons (sakura petals) */
+
+/* --- Palette & variables --- */
+:root{
+  --bg-1: #fff1ff;       /* soft pink */
+  --bg-2: #e6f7ff;       /* pale sky */
+  --card: rgba(255,255,255,0.65);
+  --accent-pink: #ff7ab6;
+  --accent-purple: #7b61ff;
+  --accent-sky: #60c0ff;
+  --muted: #5b5b6a;
+  --glass: rgba(255,255,255,0.6);
+  --radius: 16px;
+  --shadow-1: 0 10px 30px rgba(123,97,255,0.12);
+  --font: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+}
+
+/* --- Page layout --- */
+*{box-sizing:border-box}
+html,body{
+  height:100%;
+  margin:0;
+  font-family:var(--font);
+  background: linear-gradient(180deg, var(--bg-1), var(--bg-2));
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:36px 18px;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* --- Form card --- */
+form{
+  width:100%;
+  max-width:480px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.85), rgba(255,255,255,0.80));
+  border-radius:var(--radius);
+  padding:26px;
+  box-shadow: var(--shadow-1);
+  border: 1px solid rgba(255,255,255,0.6);
+  position:relative;
+  overflow:hidden;
+}
+
+/* faint anime backdrop shapes */
+form::before{
+  content:"";
+  position:absolute;
+  right:-10%;
+  top:-20%;
+  width:320px;
+  height:320px;
+  background: radial-gradient(circle at 35% 30%, rgba(255,122,182,0.16), transparent 30%),
+              radial-gradient(circle at 70% 70%, rgba(96,192,255,0.08), transparent 30%);
+  transform: rotate(18deg);
+  filter: blur(18px);
+  pointer-events:none;
+  opacity:0.95;
+}
+
+/* --- Heading --- */
+h1{
+  margin:0 0 14px 0;
+  font-size:22px;
+  color:#35263b;
+  letter-spacing:0.4px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+h1::after{
+  content:"✦";
+  color:var(--accent-pink);
+  font-size:14px;
+  opacity:0.9;
+}
+
+/* --- Input (number) --- */
+input[type="number"]{
+  width:100%;
+  padding:12px 14px;
+  border-radius:12px;
+  border: 1px solid rgba(53,38,59,0.06);
+  background: linear-gradient(180deg, rgba(255,255,255,0.95), rgba(255,255,255,0.92));
+  color:#2b2330;
+  font-size:15px;
+  outline:none;
+  box-shadow: inset 0 -6px 18px rgba(51,36,47,0.04);
+  transition: transform .12s ease, box-shadow .12s ease, border-color .12s ease;
+}
+input[type="number"]:focus{
+  transform: translateY(-2px);
+  border-color: rgba(123,97,255,0.45);
+  box-shadow: 0 10px 30px rgba(123,97,255,0.08), inset 0 -6px 18px rgba(51,36,47,0.06);
+}
+
+/* --- Radio styling: hide native, create custom sakura button via label --- */
+/* visually hide the native input but keep it accessible */
+input[type="radio"]{
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  pointer-events: auto;
+}
+
+/* base label style for radio labels */
+label[for="CelsiusToFahrenheit"],
+label[for="FahrenheitToCelsius"]{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  cursor:pointer;
+  user-select:none;
+  color:var(--muted);
+  font-size:15px;
+  padding:8px 12px;
+  border-radius:12px;
+  transition: transform .12s ease, background .12s ease, box-shadow .12s ease;
+  margin-left:6px;
+}
+
+/* create the sakura petal radio graphic using ::before on the label */
+label[for="CelsiusToFahrenheit"]::before,
+label[for="FahrenheitToCelsius"]::before{
+  content:"";
+  width:36px;
+  height:36px;
+  flex:0 0 36px;
+  border-radius:10px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.95), rgba(255,250,255,0.92));
+  display:inline-block;
+  box-shadow: 0 6px 20px rgba(123,97,255,0.08);
+  position:relative;
+  transition: transform .18s cubic-bezier(.2,.9,.25,1), box-shadow .18s ease, background .18s ease;
+  overflow:visible;
+}
+
+/* add a tiny sakura mark (using radial-gradients) inside the box */
+label[for="CelsiusToFahrenheit"]::before{
+  background-image:
+    radial-gradient(circle at 30% 30%, rgba(255,122,182,0.9) 12%, transparent 13%),
+    radial-gradient(circle at 70% 70%, rgba(255,200,230,0.85) 10%, transparent 11%);
+  transform: rotate(-6deg);
+}
+label[for="FahrenheitToCelsius"]::before{
+  background-image:
+    radial-gradient(circle at 30% 30%, rgba(96,192,255,0.9) 12%, transparent 13%),
+    radial-gradient(circle at 70% 70%, rgba(200,230,255,0.85) 10%, transparent 11%);
+  transform: rotate(6deg);
+}
+
+/* checked state: scale up and show inner blossom (using ::after) */
+label[for="CelsiusToFahrenheit"]::after,
+label[for="FahrenheitToCelsius"]::after{
+  content:"";
+  position:absolute;
+  left:8px;
+  top:6px;
+  width:20px;
+  height:20px;
+  border-radius:50%;
+  transform:scale(0);
+  transition: transform .18s cubic-bezier(.2,.9,.25,1), opacity .18s ease;
+  opacity:0;
+  pointer-events:none;
+  box-shadow: 0 6px 18px rgba(123,97,255,0.12);
+}
+
+/* blossom colors */
+label[for="CelsiusToFahrenheit"]::after{
+  background: radial-gradient(circle at 30% 30%, var(--accent-pink) 0%, #ffbfd6 60%);
+}
+label[for="FahrenheitToCelsius"]::after{
+  background: radial-gradient(circle at 30% 30%, var(--accent-sky) 0%, #cfefff 60%);
+}
+
+/* when the corresponding radio is checked, animate label */
+input#CelsiusToFahrenheit:checked + label[for="CelsiusToFahrenheit"],
+input#FahrenheitToCelsius:checked + label[for="FahrenheitToCelsius"]{
+  transform: translateY(-4px) scale(1.01);
+  background: linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0.5));
+  box-shadow: 0 16px 34px rgba(123,97,255,0.06);
+  color:#33263b;
+}
+
+/* show the inner blossom when checked — since input is before label in your HTML, we must select label via adjacent sibling logic */
+/* Note: this selector assumes the input is immediately before its label (as in your HTML). */
+input#CelsiusToFahrenheit:checked + label[for="CelsiusToFahrenheit"]::after,
+input#FahrenheitToCelsius:checked + label[for="FahrenheitToCelsius"]::after{
+  transform:scale(1);
+  opacity:1;
+}
+
+/* increase the contrast of the little petal box when checked */
+input#CelsiusToFahrenheit:checked + label[for="CelsiusToFahrenheit"]::before,
+input#FahrenheitToCelsius:checked + label[for="FahrenheitToCelsius"]::before{
+  transform: scale(1.03);
+  box-shadow: 0 14px 32px rgba(123,97,255,0.12);
+}
+
+/* --- Button --- */
+button#convert{
+  margin-top:8px;
+  padding:10px 14px;
+  border-radius:12px;
+  border: none;
+  font-weight:700;
+  letter-spacing:0.3px;
+  background: linear-gradient(90deg, var(--accent-pink), var(--accent-purple));
+  color: white;
+  cursor:pointer;
+  box-shadow: 0 14px 36px rgba(123,97,255,0.12);
+  transition: transform .12s cubic-bezier(.2,.9,.2,1), box-shadow .12s ease;
+}
+button#convert:hover{ transform: translateY(-4px); box-shadow: 0 26px 60px rgba(123,97,255,0.14); }
+
+/* --- Result area --- */
+#Result{
+  margin:0;
+  padding:12px;
+  border-radius:10px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.85));
+  border:1px solid rgba(255,255,255,0.6);
+  color:#3a2340;
+  font-weight:700;
+  text-align:center;
+  letter-spacing:0.3px;
+  margin-top:10px;
+  box-shadow: inset 0 -6px 18px rgba(255,182,220,0.04);
+}
+
+/* --- Floating sakura petals (decorative) --- */
+.form-decor { position:absolute; inset:0; pointer-events:none; overflow:hidden; }
+
+/* If you want animated petals without extra HTML, we can fake them with form::after elements */
+form::after{
+  content:"";
+  position:absolute;
+  left:-8%;
+  bottom:-20%;
+  width:420px;
+  height:420px;
+  background:
+    radial-gradient(circle at 10% 20%, rgba(255,122,182,0.06), transparent 8%),
+    radial-gradient(circle at 40% 60%, rgba(123,97,255,0.04), transparent 12%),
+    radial-gradient(circle at 80% 30%, rgba(96,192,255,0.04), transparent 8%);
+  transform: rotate(-14deg);
+  filter: blur(8px);
+  animation: drift 9s linear infinite;
+  opacity:0.9;
+  pointer-events:none;
+}
+@keyframes drift {
+  0%{ transform: translateY(0) rotate(-12deg); }
+  50%{ transform: translateY(-8px) rotate(-8deg); }
+  100%{ transform: translateY(0) rotate(-12deg); }
+}
+
+/* --- Layout spacing --- */
+form > * + * { margin-top:14px; }
+
+/* small-screen tweaks */
+@media (max-width:480px){
+  form{ padding:18px; border-radius:12px; }
+  button#convert{ width:100%; }
+  h1{ font-size:18px; }
+  input[type="number"]{ font-size:15px; padding:10px; }
+}
+#convert {
+  display: block;
+  margin: 12px auto;   /* <-- centers horizontally */
+}
+#convert {
+  display: block;
+  margin: 20px auto 0 auto;
+}
