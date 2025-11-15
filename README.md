@@ -47,19 +47,8 @@ The interface features a pastel anime-inspired theme with custom sakura-style ra
 - **CSS3** (Custom styling + anime aesthetic)  
 - **JavaScript (ES6)**  
 
----
 
-## 💡 Future Improvements
 
-- Add Kelvin conversion
-- Add history of previous conversions
-- Add light/dark anime themes
-- Add cute sound effects for button clicks
 
----
-
-## 📜 License
-
-This project is open-source and free to use.
 
 
